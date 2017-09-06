@@ -6,7 +6,7 @@
     <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyName>Serilog.Sinks.Elasticsearch</AssemblyName>
+    <AssemblyName>IchAtGithub.Serilog.Sinks.Elasticsearch</AssemblyName>
     <AssemblyOriginatorKeyFile>../../assets/Serilog.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
