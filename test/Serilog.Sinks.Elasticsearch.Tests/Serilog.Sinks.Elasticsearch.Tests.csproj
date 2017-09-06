@@ -25,10 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Serilog.Sinks.Elasticsearch\Serilog.Sinks.Elasticsearch.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="1.1.0" />
     <PackageReference Include="Serilog.Sinks.ColoredConsole" Version="2.0.0" />
@@ -57,6 +53,10 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="dotnet-version" Version="1.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Serilog.Sinks.Elasticsearch\Serilog.Sinks.Elasticsearch.csproj" />
   </ItemGroup>
 
   <ItemGroup>

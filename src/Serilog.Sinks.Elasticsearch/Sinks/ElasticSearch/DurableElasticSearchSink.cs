@@ -48,6 +48,16 @@ namespace Serilog.Sinks.Elasticsearch
 
         public void Emit(LogEvent logEvent)
         {
+            var customProperties = this._state.Options.CustomProperties;
+
+            if (customProperties != null)
+            {
+                foreach (var customProperty in customProperties)
+                {
+                    logEvent.AddPropertyIfAbsent(customProperty);
+                }
+            }
+
             _sink.Emit(logEvent);
         }
 

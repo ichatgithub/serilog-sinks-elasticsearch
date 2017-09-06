@@ -22,7 +22,7 @@ function Invoke-Build()
     }
   
     Write-Output "Creating packages"
-    & dotnet pack $project -c Release -o ..\..\artifacts  --include-symbols --include-source /p:PackageVersion=$env:GitVersion_NuGetVersionV2
+    & dotnet pack $project -c Release -o ..\..\artifacts  --include-symbols --include-source
   
     if($LASTEXITCODE -ne 0) 
     {
