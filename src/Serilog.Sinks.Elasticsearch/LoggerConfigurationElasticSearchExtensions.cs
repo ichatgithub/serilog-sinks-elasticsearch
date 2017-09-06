@@ -74,6 +74,7 @@ namespace Serilog
         /// <param name="bufferFileSizeLimitBytes"><see cref="ElasticsearchSinkOptions.BufferFileSizeLimitBytes"/></param>
         /// <param name="bufferLogShippingInterval"><see cref="ElasticsearchSinkOptions.BufferLogShippingInterval"/></param>
         /// <param name="connectionGlobalHeaders">A comma or semi column separated list of key value pairs of headers to be added to each elastic http request</param>   
+        /// <param name="customProperties">A comma or semi column separated list of key value pairs representing custom properties sent with each log event</param>
         /// <returns>LoggerConfiguration object</returns>
         /// <exception cref="ArgumentNullException"><paramref name="nodeUris"/> is <see langword="null" />.</exception>
         public static LoggerConfiguration Elasticsearch(
@@ -89,7 +90,8 @@ namespace Serilog
             string bufferBaseFilename = null,
             long? bufferFileSizeLimitBytes = null,
             long bufferLogShippingInterval = 5000,
-            string connectionGlobalHeaders = null)
+            string connectionGlobalHeaders = null,
+            string customProperties = null)
         {
             if (string.IsNullOrEmpty(nodeUris))
                 throw new ArgumentNullException("nodeUris", "No Elasticsearch node(s) specified.");
@@ -147,6 +149,22 @@ namespace Serilog
                     });
 
                 options.ModifyConnectionSettings = (c) => c.GlobalHeaders(headers);
+            }
+
+            if (!string.IsNullOrWhiteSpace(customProperties))
+            {
+                IList<LogEventProperty> properties = new List<LogEventProperty>();
+
+                customProperties
+                    .Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries)
+                    .ToList()
+                    .ForEach(p =>
+                    {
+                        var propertyValue = p.Split(new[] { '=', ':' }, 2, StringSplitOptions.RemoveEmptyEntries);
+                        properties.Add(new LogEventProperty(propertyValue[0], new ScalarValue(propertyValue[1])));
+                    });
+
+                options.CustomProperties = properties;
             }
 
             return Elasticsearch(loggerSinkConfiguration, options);

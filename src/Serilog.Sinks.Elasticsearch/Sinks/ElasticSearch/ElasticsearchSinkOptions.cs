@@ -55,8 +55,8 @@ namespace Serilog.Sinks.Elasticsearch
         /// If not provided, this will default to the default number_of_shards configured in Elasticsearch.
         /// </summary>
         public int? NumberOfShards { get; set; }
-		
-		/// <summary>
+
+        /// <summary>
         /// When using the <see cref="AutoRegisterTemplate"/> feature, this allows you to override the default number of replicas.
         /// If not provided, this will default to the default number_of_replicas configured in Elasticsearch.
         /// </summary>
@@ -152,6 +152,11 @@ namespace Serilog.Sinks.Elasticsearch
         /// Customizes the formatter used when converting log events into the durable sink. Please note that the formatter output must be valid JSON :)
         /// </summary>
         public ITextFormatter CustomDurableFormatter { get; set; }
+
+        /// <summary>
+        /// Custom properties that will be added for each log event sent through the sink.
+        /// </summary>
+        public IEnumerable<LogEventProperty> CustomProperties { get; set; }
 
         /// <summary>
         /// Configures the elasticsearch sink defaults

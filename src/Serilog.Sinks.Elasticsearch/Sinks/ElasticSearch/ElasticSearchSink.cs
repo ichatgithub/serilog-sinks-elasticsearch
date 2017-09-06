@@ -60,19 +60,31 @@ namespace Serilog.Sinks.Elasticsearch
         /// </summary>
         /// <param name="events">The events to emit.</param>
         /// <returns>Response from Elasticsearch</returns>
-        protected virtual ElasticsearchResponse<T> EmitBatchChecked<T>(IEnumerable<LogEvent> events) where T: class
+        protected virtual ElasticsearchResponse<T> EmitBatchChecked<T>(IEnumerable<LogEvent> events) where T : class
         {
             // ReSharper disable PossibleMultipleEnumeration
             if (events == null || !events.Any())
                 return null;
 
+            var customProperties = this._state.Options.CustomProperties;
             var payload = new List<string>();
+
+
             foreach (var e in events)
             {
                 var indexName = _state.GetIndexForEvent(e, e.Timestamp.ToUniversalTime());
                 var action = new { index = new { _index = indexName, _type = _state.Options.TypeName } };
                 var actionJson = _state.Serialize(action);
                 payload.Add(actionJson);
+
+                if (customProperties != null)
+                {
+                    foreach (var customProperty in customProperties)
+                    {
+                        e.AddPropertyIfAbsent(customProperty);
+                    }
+                }
+
                 var sw = new StringWriter();
                 _state.Formatter.Format(e, sw);
                 payload.Add(sw.ToString());
