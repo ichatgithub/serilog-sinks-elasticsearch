@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>Serilog.Sinks.Elasticsearch</id>
+    <id>IchAtGithub.Serilog.Sinks.Elasticsearch</id>
     <version>2.0.60.2</version>
-    <authors>Michiel van Oudheusden, Martijn Laarman, Mogens Heller Grabe</authors>
+    <authors>IchAtGithub</authors>
     <description>The perfect way for .NET apps to write structured log events to Elasticsearch.</description>
     <language>en-US</language>
     <projectUrl>http://serilog.net</projectUrl>
